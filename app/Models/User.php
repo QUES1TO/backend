@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
-use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -24,12 +23,10 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'last_name',
-        'address',
     ];
 
     /**
-     * The attributes that should be hidden for.
+     * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
@@ -54,9 +51,5 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPasswordNotification($token));
     }
 }

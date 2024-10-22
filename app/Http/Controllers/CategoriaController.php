@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoriaRegisterRequest;
-use Illuminate\Support\Facades\Storage;
 
 class CategoriaController extends Controller
 {
@@ -15,7 +14,7 @@ class CategoriaController extends Controller
     public function index()
     {
         //$categoria = Categoria::all();
-        $categoria = Categoria::get(['id','nombre']);
+        $categoria = Categoria::get(['id','nombre','cc','modelo','marca','url_imagen','stock','descripcion','precio']);
         return $this->jsonControllerResponse( $categoria,200,true);
     }
 
@@ -32,21 +31,12 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaRegisterRequest $request)
     {
-        $validated = $request->validated();                
-
-        $validated = $request->only(["nombre"]);
-        $categoria = Categoria::create($validated);     
-        
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->extension();
-        Storage::disk('public')->put($imageName, file_get_contents($image));
-
-        $categoria->url_image = $imageName;
-        $categoria->save();
+        $validated = $request->validated();
+        $categoria = Categoria::create($validated);
         $respuesta = [
             "mensaje"=> "Categoria creada con exito!!!!"
-        ];        
-        return $this->jsonControllerResponse( $respuesta,200,true);
+        ];
+        return json_encode($respuesta);
     }
 
     /**
@@ -70,7 +60,15 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        // editar categoria
+        $user=auth('api')->user();
+        $categoria = categoria::where('id', $categoria->id)->first();
+        $categoria->nombre = $request['nombre'];
+        $categoria->save();
+        $respuesta = [
+            "mensaje"=> "Categoria editada con exito!!!!"
+        ];
+        return $this->jsonControllerResponse( $respuesta,200,true);
     }
 
     /**
@@ -78,6 +76,11 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        // eliminar la categoria
+        $categoria->delete();
+        $respuesta = [
+            "mensaje"=> "Categoria eliminada con exito!!!!"
+        ];
+        return $this->jsonControllerResponse( $respuesta,200,true);
     }
 }

@@ -22,8 +22,7 @@ class CategoriaRegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [            
-            'nombre' => 'required',     
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',       
+            'nombre' => 'required',            
         ];
     }
     public function messages()

@@ -24,9 +24,7 @@ class UserRegisterRequest extends BaseFormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'last_name' => 'required',
-            'address' => 'required'
+            'password' => 'required'
         ];
     }
     public function messages()
@@ -37,7 +35,7 @@ class UserRegisterRequest extends BaseFormRequest
             //'nombre.max' => 'El campo nombre no debe superar los :max caracteres.',
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
-            'password.required' => 'El campo contraseña es obligatorio.',
+            'password.required' => 'El campo nombre es obligatorio.',
             'email.unique'=> 'El email ya existe'
         ];
     }
