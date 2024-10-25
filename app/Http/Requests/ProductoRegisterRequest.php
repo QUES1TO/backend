@@ -37,9 +37,9 @@ class ProductoRegisterRequest extends BaseFormRequest
     {
         return [
             'nombre.required' => 'El campo nombre  es obligatorio.',   
-            'cc.required' => 'El campo cc  es obligatorio.',
+            'calida.required' => 'El campo calidad  es obligatorio.',
             'modelo.required' => 'El campo modelo  es obligatorio.',
-            'marca.required' => 'El campo marca  es obligatorio.',
+            'lado.required' => 'El campo lado  es obligatorio.',
             'stock.required' => 'El campo stock  es obligatorio.',
             'descripcion.required' => 'El campo descripcion  es obligatorio.',
             'precio.required' => 'El campo precio  es obligatorio.',

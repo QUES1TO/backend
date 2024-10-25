@@ -86,9 +86,9 @@ class ProductoController extends Controller
          Storage::disk('public')->put($imageName, file_get_contents($image));        
          $producto->url_imagen=$imageName;
          $producto->nombre=$request->input('nombre');
-         $producto->cc=$request->input('calidad');
+         $producto->calidad=$request->input('calidad');
          $producto->modelo=$request->input('modelo');
-         $producto->marca=$request->input('lado');
+         $producto->lado=$request->input('lado');
          $producto->stock=$request->input('stock');
          $producto->descripcion=$request->input('descripcion');
          $producto->precio=$request->input('precio');
